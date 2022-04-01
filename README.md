@@ -1,0 +1,2 @@
+# TextWordCount
+Reads in two files and a value N.  The first file are words not to count.  The second file is a block of text.  This project displays the N words with the highest word count in the block of text.
