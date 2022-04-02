@@ -1,0 +1,97 @@
+h1 
+{
+    font-family: sans-serif;
+    text-align: center;
+    padding: 10px;
+    font-size: 40px;
+}
+
+table, tr, td
+{
+    border: 2px dashed #ccc;
+    padding: 5px;
+    width: 70%;
+    margin: 20px;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: sans-serif;
+}
+
+th
+{
+   border: 2px dashed #ccc;
+}
+
+tr, td
+{
+   width: 50%;
+}
+
+#words-table
+{
+   width: 100%;
+   vertical-align: top;
+}
+
+#word-count-div
+{
+   vertical-align: top;
+   left: 50%;
+   top: 10%;
+}
+
+#stop-drop-area 
+{
+    border: 2px dashed #ccc;
+    font-size: 20px;
+    margin: 10px auto;
+    text-align: center;
+    border-radius: 25px;
+    width: 50%;
+    font-family: sans-serif;
+    line-height: 40px;
+    height: 250px;
+}
+
+#text-drop-area 
+{
+    border: 2px dashed #ccc;
+    font-size: 20px;
+    margin: 10px auto;
+    text-align: center;
+    border-radius: 25px;
+    width: 50%;
+    font-family: sans-serif;
+    line-height: 40px;
+    height: 250px;
+}
+
+#drop-area.highlight 
+{
+    border-color: purple;
+}
+
+p 
+{
+    margin-top: 10px;
+}
+
+#fileElem 
+{
+    display: none;
+}
+
+.error 
+{
+    margin-bottom: 10px;
+    margin-left: 15px;
+    color: red;
+}
+
+.header 
+{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
