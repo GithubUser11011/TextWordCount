@@ -41,35 +41,23 @@ tr, td
    top: 10%;
 }
 
-#stop-drop-area 
+.drop-area
 {
-    border: 2px dashed #ccc;
-    font-size: 20px;
-    margin: 10px auto;
-    text-align: center;
-    border-radius: 25px;
-    width: 50%;
-    font-family: sans-serif;
-    line-height: 40px;
-    height: 250px;
+   border: 2px dashed #ccc;
+   font-size: 20px;
+   margin: 10px auto;
+   text-align: center;
+   border-radius: 25px;
+   width: 95%;
+   font-family: sans-serif;
+   line-height: 40px;
+   height: 250px;
+   overflow-x: hidden;
 }
 
-#text-drop-area 
+.highlight
 {
-    border: 2px dashed #ccc;
-    font-size: 20px;
-    margin: 10px auto;
-    text-align: center;
-    border-radius: 25px;
-    width: 50%;
-    font-family: sans-serif;
-    line-height: 40px;
-    height: 250px;
-}
-
-#drop-area.highlight 
-{
-    border-color: purple;
+   border-color: purple;
 }
 
 p 

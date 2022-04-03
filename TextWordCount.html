@@ -1,7 +1,7 @@
 <html>
 <head>
    <link rel="stylesheet" href="StyleSheet.css">
-   <script src="JavaScript.js"></script>
+   <script src="scripts.js"></script>
 </head>
 <body onload="initialize()">
    <h1>Most Common Words</h1>
@@ -9,7 +9,7 @@
    <table>
       <tr>
          <td>
-            <div id="stop-drop-area">
+            <div id="stop-drop-area" class="drop-area">
                <p>Stop Words <br><br>Drag and drop a text file here.  It should contain a list of words, one per line, of words to ignore while counting the most common words</p>
                <input type="file" id="fileElem" onchange="handleFiles(this.files)">
                <label id="error" class="error"></label>
@@ -30,7 +30,7 @@
       </tr>
       <tr>
          <td>
-            <div id="text-drop-area">
+            <div id="text-drop-area" class="drop-area">
                <p>Text to Count<br><br>Drag and drop a text file here to find the most common words used.  It can contain any amount of text.</p>
                <input type="file" id="fileElem" onchange="handleFiles(this.files)">
                <label id="error" class="error"></label>
