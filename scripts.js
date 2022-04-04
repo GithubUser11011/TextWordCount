@@ -1,10 +1,9 @@
 function initialize()
 {
-   wordCounter = new WordCounter()
-
    // ************************ Drag and drop ***************** //
    stopDropArea = document.getElementById("stop-drop-area")
    textDropArea = document.getElementById("text-drop-area")
+   wordsTable   = document.getElementById("words-table")
 
    // Prevent default drag behaviors
    ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => 
@@ -30,6 +29,8 @@ function initialize()
    // Handle dropped files
    stopDropArea.addEventListener('drop', handleStopDrop, false)
    textDropArea.addEventListener('drop', handleTextDrop, false)
+
+   stop_words = []
 }
 
 function preventDefaults(e)
@@ -63,14 +64,41 @@ function handleStopDrop(e)
    var dt = e.dataTransfer;
    var files = dt.files;
 
-   if (files.length > 1)
+   //Read in the file and store the text in the stop-drop-area
+   var fr = new FileReader(files[0])
+   fr.onload = readSuccess;
+
+   //This is done after load is successful so load up the stop-list here
+   function readSuccess(evt)
    {
-      alert ("Please only upload one file at a time")
+      const file_text  = evt.target.result
+      var stop_lines = file_text.split(/\r?\n/)
+      var stop_words = []
+
+      //Remove blank lines and any lines that start with '#' or ' '
+      stop_lines.forEach((line, index, object) =>
+      {
+         if (line.length > 0 && line.charAt(0) != '#' && !(line.trim() === ''))
+         {
+            //while we're adding words, filter out the duplicates
+            if (!stop_words.includes(line.trim()))
+            {
+               stop_words.push(line.trim())
+            }
+         }
+      })
+
+      stopDropArea.innerHTML = ""
+      stop_words.forEach((line) =>
+      {
+         stopDropArea.innerHTML = stopDropArea.innerHTML + line + "<br>"
+      })
+
+      stopDropArea.style.color = '#0f0'
    }
-   else
-   {
-      wordCounter.setStopFile (files[0])
-   }
+   
+   //load the file into memory
+   fr.readAsText(files[0]);   
 }
 
 function handleTextDrop(e)
@@ -78,71 +106,69 @@ function handleTextDrop(e)
    var dt = e.dataTransfer;
    var files = dt.files;
 
-   if (files.length > 1)
+   //Read in the file and store the text in the stop-drop-area
+   var fr = new FileReader(files[0])
+   fr.onload = readSuccess;
+
+   //This is done after load is successful so load up the stop-list here
+   function readSuccess(evt)
    {
-      alert ("Please only upload one file at a time")
-   }
-   else
-   {
-      wordCounter.setTextFile (files[0])
-   }
-}
+      var file_text  = evt.target.result
+      file_text = file_text.toLowerCase();
+      word_count = new Map();
 
-class WordCounter
-{
-   /**
-    * This class takes in a stop file and a text file.
-    * Once both files are set, it reads them in and creates a list of words and how many times they're used in the text file
-    * Get functions are provided to retrieve the list of words and counts
-   */
-   constructor(data)
-   {
-      this.text_file_set = false;
-      this.stop_file_set = false;
+      //This feels like a hack but I can't figure out why stop_words isn't staying populated - read it in from stopDropArea
+      stop_words = stopDropArea.innerHTML.split("<br>")
+      console.log (stop_words)
 
-      this.stop_words = new Array();
-   }
+      //remove punctuation - I can't seem to get all of them removed - probably what's messing with my counts a bit
+      //It would be less "clever" to do these separately and it'll probably be hard to modify 
+      file_text = file_text.replace(/[.,\/#!$%?”“’\^&\*;:{}=\-_`~()]/g,"")
 
-   //Set the stop file - if text file is already set, process everything
-   setStopFile(stop_file)
-   {
-      //Read in the text file
-      console.log ("In setStopFile")
+      //make multiple spaces/tabs/whitespace into a single space
+      file_text = file_text.replace(/\s\s+/g, ' ');
 
-      var fr = new FileReader(stop_file)
-      fr.onload = readSuccess;
-
-      //This is done after load is successful so load up the stop-list here
-      function readSuccess(evt)
-      {
-         const file_text  = evt.target.result
-         var stop_lines = file_text.split(/\r?\n/)
-
-         //Initialize this.stop_words
-         this.stop_words = []
-
-         //Remove blank lines and any lines that start with '#' or ' '
-         stop_lines.forEach((line, index, object) =>
-         {
-            if (line.length > 0 && line.charAt(0) != '#' && !(line.trim() === ''))
-            {
-               //while we're adding words, filter out the duplicates
-               if (!this.stop_words.includes(line.trim()))
-               {
-                  this.stop_words.push(line.trim())
-               }
-            }
-         })
-      }
+      //split file_text on spaces and store as words array
+      var text_words = file_text.split(/\s/)
       
-      //load the file into memory
-      fr.readAsText(stop_file);
-   }
+      for (var i = 0; i < text_words.length; i++) 
+      {
+         if (!stop_words.includes(text_words[i]))
+         {
+            if (word_count.has (text_words[i]))
+            {
+               word_count.set(text_words[i], (word_count.get(text_words[i])) + 1)
+            }
+            else
+            {
+               word_count.set(text_words[i], 1)
+            }
+         }
+      }
 
-   //Set the text file - if stop file is already set, process everything
-   setTextFile(text_file_info)
-   {
-      //Read in the text file
-      console.log ("In setTextFile")
+      //Convert the word_counts map to an array and then sort the array
+      let top_words      = [...word_count]
+
+      //console.table (top_words)
+
+      let num_top_words  = 0
+      let min_word_count = 5000
+
+      //Sort the array
+      top_words.sort(function(a,b)
+      {
+         return b[1]-a[1]
+      });
+
+      console.table (top_words)
+
+      //textDropArea.innerHTML = ""
+      //Build the top 10 words list table
+      //wordsTable.innerHTML = 
+
    }
+   
+   //load the file into memory
+   fr.readAsText(files[0]);   
 }
+
