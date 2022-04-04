@@ -10,3 +10,5 @@ To that end, I chose Javascript/HTML/CSS as the language to solve this problem. 
 
 I also chose to create a class that handled most of the functionality.  This eliminates duplicate coding and creates single failure points that are easier to debug.  It also makes using the functionality in later programs a lot easier.
 
+### Update
+After I had all of that designed out, I fought and fought with scope issues while reading in files asynchronously.  I had to scrap the class and pull the data in functions.  I had to hack a couple of things because I spent so much time in the weeds of asynch file reading but I'll go back when I have time and do it properly.
