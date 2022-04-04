@@ -21,7 +21,7 @@ Add slider control to adjust how many words and counts appear
 ## Usage
 I went with these languages to make the utility very simple to test and use and I think I've accomplished that.
 
-To use, simply download TextWordCount.html, StyleSheet.css, and scripts.js into a directory.  Then double click on TextWordCount.
+To use, simply download TextWordCount.html, StyleSheet.css, and scripts.js into a directory.  Then double click on TextWordCount.  You can also download the text files for testing or use your own if you have them.
 
 Once it's opened, drag a stop-words text file to the Stop Words area.  It will list the words and turn green if it succeeded.  If the file is improperly formatted, it will turn red and alert you.
 
